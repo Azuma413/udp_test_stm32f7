@@ -1,0 +1,2 @@
+rtos_udpReceiver.c:17:6:UDPDefineTasks	48	static
+rtos_udpReceiver.c:23:6:UDPSendReceive	944	static
