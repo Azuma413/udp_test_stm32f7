@@ -24,7 +24,7 @@
 #include "rtos_udp.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "dma_printf.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -95,6 +95,17 @@ void StartControllerTask(void const * argument);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+#ifdef __GNUC__
+#define PUTCHAR_PROTOTYPE int __io_putchar(uint8_t ch)
+#else
+#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#endif /* __GNUC__ */
+
+PUTCHAR_PROTOTYPE
+{
+  HAL_UART_Transmit(&huart3, &ch, 1, 500);
+  return ch;
+}
 
 /* USER CODE END 0 */
 
@@ -137,7 +148,12 @@ int main(void)
   MX_TIM3_Init();
   MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
-
+  setbuf(stdout, NULL);
+  setbuf(stderr, NULL);
+  HAL_Delay(50);
+  dma_printf_init(&huart3);
+  HAL_Delay(50);
+  printf("enter main function\r\n");
   /* USER CODE END 2 */
 
   /* USER CODE BEGIN RTOS_MUTEX */
@@ -171,6 +187,7 @@ int main(void)
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
+  UDPDefineTasks();
   /* USER CODE END RTOS_THREADS */
 
   /* Start scheduler */

@@ -88,7 +88,8 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Core/Inc/rtos_udp.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/sockets.h \
  ../Middlewares/Third_Party/LwIP/src/include/lwip/inet.h \
- ../Middlewares/Third_Party/LwIP/src/include/lwip/errno.h
+ ../Middlewares/Third_Party/LwIP/src/include/lwip/errno.h \
+ ../Core/Inc/dma_printf.h ../Core/Inc/dma_ring.h ../Core/Inc/main.h
 
 ../Core/Inc/main.h:
 
@@ -271,3 +272,9 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Middlewares/Third_Party/LwIP/src/include/lwip/inet.h:
 
 ../Middlewares/Third_Party/LwIP/src/include/lwip/errno.h:
+
+../Core/Inc/dma_printf.h:
+
+../Core/Inc/dma_ring.h:
+
+../Core/Inc/main.h:

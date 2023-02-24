@@ -5,6 +5,8 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Core/Src/dma_printf.c \
+../Core/Src/dma_ring.c \
 ../Core/Src/freertos.c \
 ../Core/Src/main.c \
 ../Core/Src/rtos_udp.c \
@@ -16,6 +18,8 @@ C_SRCS += \
 ../Core/Src/system_stm32f7xx.c 
 
 OBJS += \
+./Core/Src/dma_printf.o \
+./Core/Src/dma_ring.o \
 ./Core/Src/freertos.o \
 ./Core/Src/main.o \
 ./Core/Src/rtos_udp.o \
@@ -27,6 +31,8 @@ OBJS += \
 ./Core/Src/system_stm32f7xx.o 
 
 C_DEPS += \
+./Core/Src/dma_printf.d \
+./Core/Src/dma_ring.d \
 ./Core/Src/freertos.d \
 ./Core/Src/main.d \
 ./Core/Src/rtos_udp.d \
