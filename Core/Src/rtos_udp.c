@@ -5,7 +5,7 @@ static struct receive_data ros_data = { };
 static struct send_data f7_data = { };
 struct timeval tv;
 #define F7_ADDR "192.168.000.020"
-#define PC_ADDR "192.169.0.101"
+#define PC_ADDR "192.168.0.100"
 #define F7_PORT 7777
 #define PC_PORT 54321
 
@@ -42,7 +42,7 @@ void UDPSendReceive(void const *argument) {
 	cAddr.sin_addr.s_addr = inet_addr(PC_ADDR); //PCのIP
 	cAddr.sin_port = htons(PC_PORT); //PCのポート
 
-	int err = lwip_bind(sock1, (struct sockaddr*) &myAddr, sizeof(myAddr)); //制御ブロックをIPとポートに紐づける。
+	int err = lwip_bind(sock1, (struct sockaddr*) &cAddr, sizeof(cAddr)); //制御ブロックを送信先のIPとポートに紐づける。
 	if (err != 0) {
 		printf("UDPController:ERROR \r\n");
 	} else {

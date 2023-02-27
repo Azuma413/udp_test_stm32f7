@@ -2568,8 +2568,8 @@ void UDPSendReceive(void const *argument) {
  8001258:	f107 0310 	add.w	r3, r7, #16
  800125c:	805a      	strh	r2, [r3, #2]
 
-	int err = lwip_bind(sock1, (struct sockaddr*) &myAddr, sizeof(myAddr)); //制御ブロックをIPとポートに紐づける。
- 800125e:	f107 0320 	add.w	r3, r7, #32
+	int err = lwip_bind(sock1, (struct sockaddr*) &cAddr, sizeof(cAddr)); //制御ブロックを送信先のIPとポートに紐づける。
+ 800125e:	f107 0310 	add.w	r3, r7, #16
  8001262:	2210      	movs	r2, #16
  8001264:	4619      	mov	r1, r3
  8001266:	f8d7 0350 	ldr.w	r0, [r7, #848]	; 0x350
