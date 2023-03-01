@@ -5,6 +5,6 @@
     "\\Core\\Inc",
     "\\Core\\Src"
   ],
-  "SelectedNode": "\\Core\\Src\\rtos_udpReceiver.c",
+  "SelectedNode": "\\Core\\Src\\rtos_udp.c",
   "PreviewInSolutionExplorer": false
 }
