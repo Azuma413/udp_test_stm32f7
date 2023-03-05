@@ -57,11 +57,11 @@ void UDPSendReceive(void const *argument) {
 	int maxfd = 0;
 	int result = 0;
 	/*---------test sumple----------*/
-	f7_data.omni_x = 0.5f;
-	f7_data.omni_y = 0.5f;
-	f7_data.hat_shoulder_success = 0;
+	f7_data.omni_x = 0.3f;
+	f7_data.omni_y = 0.2f;
+	f7_data.hat_shoulder_success = 1;
 	f7_data.sword_A_shoulder_success = 0;
-	f7_data.sword_B_shoulder_success = 0;
+	f7_data.sword_B_shoulder_success = 1;
 	f7_data.launcher_linear_success = 0;
 	/*------------------------*/
 
@@ -70,17 +70,18 @@ void UDPSendReceive(void const *argument) {
 	printf("enter udp loop\r\n");
 	while (1) {
 		FD_SET(rxsock, &reading); //readingにsock（ディスクリプタ番号）を追加
-		FD_SET(txsock, &sending);
-		if (rxsock > txsock) {
+//		FD_SET(txsock, &sending);
+//		if (rxsock > txsock) {
 			maxfd = rxsock + 1;
-		}
+/*		}
 		else {
 			maxfd = txsock + 1;
-		}
+		}*/
 		memset(&tv, 0, sizeof(tv));
-		tv.tv_sec = 5;
-		result = select(maxfd, &reading, &sending, NULL, &tv); //ファイルディスクリプタ―がready状態になるまで1ミリ秒まで待つ。
-		printf("select result: %d\r\n", result);
+		tv.tv_sec = 0;
+		//result = select(maxfd, &reading, &sending, NULL, &tv); //ファイルディスクリプタ―がready状態になるまで1ミリ秒まで待つ。
+		result = select(maxfd, &reading, NULL, NULL, &tv);
+//		printf("select result: %d\r\n", result);
 
 		if (FD_ISSET(rxsock, &reading)) { //readingの中にsockの値が含まれているか調べる。
 			printf("fd is set\r\n");
@@ -98,24 +99,25 @@ void UDPSendReceive(void const *argument) {
 			}
 		}
 		//callback
-		if (FD_ISSET(txsock, &sending)) {
+//		if (FD_ISSET(txsock, &sending)) {
+//		printf("set\r\n");
 			struct send_data* sd = (struct send_data*)&txbuf; //txbufの位置に重ねてsdを宣言
 			memcpy(sd, &f7_data, sizeof(struct send_data)); //送信データをコピーする
-			iBytesWritten = lwip_sendto(txsock, (char*)txbuf, sizeof(txbuf), 0, (struct sockaddr*)&txAddr, sizeof(txAddr));
+			iBytesWritten = lwip_sendto(txsock, (char*)txbuf, sizeof(struct send_data), 0, (struct sockaddr*)&txAddr, sizeof(txAddr));
 			//iBytesWritten = lwip_sendto(sock, (char*)"hello world from f7!", 256, 0, (struct sockaddr*)&cAddr, sizeof(cAddr));
 			if (iBytesWritten > 0) {
-				printf("success send data\r\n");
+				//printf("success send data\r\n");
 				if (iBytesWritten < sizeof(struct send_data)) {
-					printf("send data / invalid\r\n");
+					//printf("send data / invalid\r\n");
 				}
 				else {
-					printf("success : send data\r\n");
+					//printf("send data / complete\r\n");
 				}
 			}
 			else {
 				printf("failed : send data\r\n");
 			}
-		}
+//		}
 		osDelay(10);
 	}
 }
