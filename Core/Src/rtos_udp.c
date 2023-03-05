@@ -84,7 +84,7 @@ void UDPSendReceive(void const *argument) {
 //		printf("select result: %d\r\n", result);
 
 		if (FD_ISSET(rxsock, &reading)) { //readingの中にsockの値が含まれているか調べる。
-			printf("fd is set\r\n");
+			//printf("fd is set\r\n");
 			socklen_t n;
 			socklen_t len = sizeof(rxAddr);
 			n = lwip_recvfrom(rxsock, (char*) rxbuf, sizeof(rxbuf), (int) NULL, (struct sockaddr*) &rxAddr, &len); //rxbufに受信データを格納
@@ -95,7 +95,7 @@ void UDPSendReceive(void const *argument) {
 				}
 				struct receive_data *d = (struct receive_data*) &rxbuf; //rxbufの位置にreceive_data構造体を作る。(疑似的にデータが変換される)
 				memcpy(&ros_data, d, sizeof(struct receive_data)); //受信データをコピーする
-				printf("omni1:%f\r\nomni2:%f\r\nomni3:%f\r\nomni4:%f\r\n", ros_data.omni1_power, ros_data.omni2_power, ros_data.omni3_power, ros_data.omni4_power); //試験的に出力
+				//printf("omni1:%f\r\nomni2:%f\r\nomni3:%f\r\nomni4:%f\r\n", ros_data.omni1_power, ros_data.omni2_power, ros_data.omni3_power, ros_data.omni4_power); //試験的に出力
 			}
 		}
 		//callback
@@ -121,3 +121,12 @@ void UDPSendReceive(void const *argument) {
 		osDelay(10);
 	}
 }
+
+struct receive_data UDP_GetROSData(){
+	return ros_data;
+}
+
+void UDP_SendF7Data(struct send_data *data){
+	memcpy(&f7_data, data, sizeof(struct send_data));
+}
+

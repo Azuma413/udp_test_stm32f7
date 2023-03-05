@@ -91,7 +91,8 @@ void StartSensorTask(void const * argument);
 void StartControllerTask(void const * argument);
 
 /* USER CODE BEGIN PFP */
-
+static struct receive_data ros_data = { };
+static struct send_data f7_data = { };
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -825,9 +826,17 @@ void StartDefaultTask(void const * argument)
   MX_LWIP_Init();
   /* USER CODE BEGIN 5 */
   /* Infinite loop */
-  for(;;)
-  {
+  for(;;){
 //	etharp_gratuitous(&gnetif);
+	 f7_data.omni_x = 0.44f;
+	 f7_data.omni_y = 0.55f;
+	 f7_data.hat_shoulder_success = 1;
+	 f7_data.sword_A_shoulder_success = 1;
+	 f7_data.sword_B_shoulder_success = 1;
+	 f7_data.launcher_linear_success = 1;
+	 UDP_SendF7Data(&f7_data);
+	 ros_data = UDP_GetROSData();
+	 printf("omni1:%f\r\nomni2:%f\r\nomni3:%f\r\nomni4:%f\r\n", ros_data.omni1_power, ros_data.omni2_power, ros_data.omni3_power, ros_data.omni4_power); //試験的に出力
     osDelay(100);
   }
   /* USER CODE END 5 */

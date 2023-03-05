@@ -1,2 +1,4 @@
 rtos_udp.c:17:6:UDPDefineTasks	48	static
-rtos_udp.c:23:6:UDPSendReceive	912	static
+rtos_udp.c:23:6:UDPSendReceive	896	static
+rtos_udp.c:125:21:UDP_GetROSData	24	static
+rtos_udp.c:129:6:UDP_SendF7Data	16	static

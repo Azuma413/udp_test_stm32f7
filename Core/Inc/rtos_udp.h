@@ -31,6 +31,7 @@ struct send_data {
 	int sword_B_shoulder_success;
 	int launcher_linear_success;
 };
-
+struct receive_data UDP_GetROSData();
+void UDP_SendF7Data(struct send_data*);
 void UDPDefineTasks();
 #endif /* UDPCONTROLLER_H_ */
